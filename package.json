@@ -1,0 +1,9 @@
+{
+  "name": "C-Robert",
+  "version": "1.0.0",
+  "description": "Small project to track some cryptocurrencies",
+  "main": "/build/index.js",
+  "repository": "https://github.com/Vico1993/crobert",
+  "author": "Victor Piolin <victor.piolin@gmail.com>",
+  "license": "MIT"
+}
