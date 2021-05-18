@@ -1,13 +1,10 @@
 import { Context, Telegraf } from 'telegraf'
 import * as dotenv from 'dotenv'
 
-import {
-    getCoins,
-    getCurrentPrice
-} from './coins'
+import { getCoins, getCurrentPrice } from './coins'
 
 // Load process.env in Typescript
-dotenv.config();
+dotenv.config()
 
 // Define your own context type
 interface BotContext extends Context {
@@ -23,10 +20,7 @@ bot.use((ctx: BotContext, next) => {
     ctx.username = ctx.message.from.first_name
 
     // DEBUG
-    console.log(
-        'Someone try to talk to me - ',
-        ctx.message.from.first_name
-    )
+    console.log('Someone try to talk to me - ', ctx.message.from.first_name)
 
     return next()
 })
@@ -41,24 +35,27 @@ bot.hears('hi', (ctx) => {
 
 // @todo: find a better way to have a list of Crypto
 bot.hears(/!price [A-Z]/i, async (ctx) => {
-
     const message = ctx.message.text
 
     // ctx.reply('fetching my db...')
 
     getCoins({
-        symbols: [...message.split(' ')].splice(1, 6)
-    }).then( quotes => {
-        for (const key in quotes.data) {
-            const data = quotes.data[key]
-
-            ctx.reply(`*${data.slug}*: ${getCurrentPrice(data, 'CAD')}`, { parse_mode: 'MarkdownV2' })
-        }
-    }).catch( error => {
-        console.error(error)
-
-        ctx.reply(`Something came up, and I can't do it... see you later`)
+        symbols: [...message.split(' ')].splice(1, 6),
     })
+        .then((quotes) => {
+            for (const key in quotes.data) {
+                const data = quotes.data[key]
+
+                ctx.reply(`*${data.slug}*: ${getCurrentPrice(data, 'CAD')}`, {
+                    parse_mode: 'MarkdownV2',
+                })
+            }
+        })
+        .catch((error) => {
+            console.error(error)
+
+            ctx.reply(`Something came up, and I can't do it... see you later`)
+        })
 })
 
 // bot.help((ctx) => ctx.reply('Send me a sticker'))
@@ -69,4 +66,3 @@ bot.launch()
 
 // Enable graceful stop
 // process.once('SIGINT', () => bot.stop('SIGINT'))
-

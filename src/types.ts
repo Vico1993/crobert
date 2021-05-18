@@ -2,7 +2,7 @@
  * Filter Coinmarket cap responses
  */
 export type coinFilter = {
-    symbols: string | string[]
+    symbols: string | string[]
     currencies?: string
 }
 
@@ -52,7 +52,7 @@ export type cmcQuotesResponse = {
         error_code: number
         error_message: string | null
         credit_count: number
-    },
+    }
     data: {
         [key: string]: coin
     }
