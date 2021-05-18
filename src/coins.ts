@@ -1,6 +1,7 @@
 import * as CoinMarketCap from 'coinmarketcap-api'
 import * as dotenv from 'dotenv'
 import * as yup from 'yup'
+import * as currencyFormatter from 'currency-formatter'
 
 import {
     coinFilter,
@@ -66,5 +67,9 @@ export const getCoins = async (params: coinFilter): Promise<cmcQuotesResponse> =
  * @returns
  */
 export const getCurrentPrice = (crypto: coin, currency: string) => {
-    return crypto.quote[currency].price
+    return currencyFormatter.format(crypto.quote[currency].price, {
+        code: currency,
+        thousand: ',',
+        decimal: '\\.'
+    })
 }
