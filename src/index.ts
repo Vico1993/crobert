@@ -1,8 +1,18 @@
-import * as CoinMarketCap from 'coinmarketcap-api'
-import * as dotenv from 'dotenv';
+import {
+    getCoins,
+    getCurrentPrice
+} from './coins'
 
-dotenv.config();
+// Basic example
+getCoins({
+    symbols: 'ETH,ICP,BTC'
+}).then( quotes => {
+    for (const key in quotes.data) {
+        const data = quotes.data[key]
 
-const client = new CoinMarketCap(process.env.API_KEY)
-
-client.getTickers().then(console.log).catch(console.error)
+        console.log(
+            data.slug,
+            getCurrentPrice(data, 'CAD')
+        )
+    }
+}).catch(console.error)
