@@ -17,6 +17,7 @@
     },
     "scripts": {
         "start": "node .",
+        "build": "tsc -p tsconfig.json",
         "start:watch": "nodemon --watch \"src/**\" --ext \"ts,json\" --ignore \"src/**/*.spec.ts\" --exec \"ts-node src/index.ts\""
     },
     "dependencies": {

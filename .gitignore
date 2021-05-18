@@ -1,5 +1,7 @@
 .env
 
+build
+
 # Yarn2 stuff
 .yarn/*
 !.yarn/patches
