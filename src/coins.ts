@@ -52,9 +52,9 @@ export const getCoins = async (params: coinFilter): Promise<cmcQuotesResponse> =
  *
  * @param {coin} crypto Information return by CMC
  * @param {string} currency
- * @returns
+ * @returns {string}
  */
-export const getCurrentPrice = (crypto: coin, currency: string) => {
+export const getCurrentPrice = (crypto: coin, currency: string): string => {
     return currencyFormatter.format(crypto.quote[currency].price, {
         code: currency,
         thousand: ',',
