@@ -39,23 +39,23 @@ bot.hears(/!price [\w| ]*/i, async (ctx) => {
 
     await ctx.reply('fetching my db...')
 
-    getCoins({
-        symbols: [...message.split(' ')].splice(1, 6),
-    })
-        .then((quotes) => {
-            for (const key in quotes.data) {
-                const data = quotes.data[key]
-
-                ctx.reply(`*${data.name}*: ${getCurrentPrice(data, 'CAD')}`, {
-                    parse_mode: 'MarkdownV2',
-                })
-            }
+    try {
+        const quotes = await getCoins({
+            symbols: [...message.split(' ')].splice(1, 6),
         })
-        .catch((error) => {
-            console.error(error)
 
-            ctx.reply(`Something came up, and I can't do it\.\.\. see you later`)
-        })
+        for (const key in quotes.data) {
+            const data = quotes.data[key]
+
+            await ctx.reply(`*${data.slug}*: ${getCurrentPrice(data, 'CAD')}`, {
+                parse_mode: 'MarkdownV2',
+            })
+        }
+    } catch (error) {
+        console.error(error)
+
+        await ctx.reply(`Oops something happened.. Can't find it.`)
+    }
 })
 
 // bot.help((ctx) => ctx.reply('Send me a sticker'))
