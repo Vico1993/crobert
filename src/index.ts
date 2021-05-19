@@ -26,11 +26,27 @@ bot.use((ctx: BotContext, next) => {
 })
 
 bot.start((ctx: BotContext) => {
-    ctx.reply('Welcome ' + ctx.username)
+    ctx.replyWithMarkdownV2('Hello *' + ctx.username + '*, give me a crypto')
 })
 
 bot.hears('hi', (ctx) => {
-    ctx.reply('Hey there *' + ctx.username + '*', { parse_mode: 'MarkdownV2' })
+    ctx.replyWithMarkdownV2('Hey there *' + ctx.username + '*, how your portfolio is doing today')
+})
+
+bot.help(async (ctx) => {
+    await ctx.replyWithMarkdownV2(`Here is how I can help you\\.`)
+
+    await ctx.replyWithMarkdownV2(
+        `I can give you the price of a cryptocurrencies at some point\\. Just send me:`,
+    )
+
+    await ctx.replyWithMarkdownV2(`\`!price {cryptoCode1} {cryptoCode2} \\.\\.\\.\``)
+
+    await ctx.replyWithMarkdownV2(`For example: \`!price ETH BTC\` `)
+
+    await ctx.replyWithMarkdownV2(
+        `For any command you can give me an extra parameters with a specific currency with this tag \`currencie:CAD\``,
+    )
 })
 
 // @todo: find a better way to have a list of Crypto
@@ -47,7 +63,7 @@ bot.hears(/!price [\w| ]*/i, async (ctx) => {
         for (const key in quotes.data) {
             const data = quotes.data[key]
 
-            await ctx.reply(`*${data.slug}*: ${getCurrentPrice(data, 'CAD')}`, {
+            await ctx.reply(`*${data.name}*: ${getCurrentPrice(data, 'CAD')}`, {
                 parse_mode: 'MarkdownV2',
             })
         }
@@ -58,9 +74,8 @@ bot.hears(/!price [\w| ]*/i, async (ctx) => {
     }
 })
 
-// bot.help((ctx) => ctx.reply('Send me a sticker'))
-// bot.on('sticker', (ctx) => ctx.reply('👍'))
-// bot.launch()
+// @todo: TOP Winner ? loose ?
+// @todo: News ?
 
 bot.launch()
 
