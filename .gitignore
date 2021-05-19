@@ -2,6 +2,9 @@
 
 build
 
+#DB
+bot_db.json
+
 # Yarn2 stuff
 .yarn/*
 !.yarn/patches

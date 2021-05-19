@@ -141,10 +141,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:^4.14.165":
+"@types/lodash@npm:*, @types/lodash@npm:^4.14.165":
   version: 4.14.169
   resolution: "@types/lodash@npm:4.14.169"
   checksum: a6032afed62863260a209fb7f90471e304b6f1b1e8f6e75b15d6b0c6bcb89567c0c708f93a78349538f9f908cd2fbe6b322a1ccac13eb1b370f05d23cbb5d057
+  languageName: node
+  linkType: hard
+
+"@types/lowdb@npm:^1.0.9":
+  version: 1.0.10
+  resolution: "@types/lowdb@npm:1.0.10"
+  dependencies:
+    "@types/lodash": "*"
+  checksum: fed38d0ec94149adf1ddb434ea2b5e21dc055fcbc7c7b63cdc061bbd871691a3643d7755712a6ee15f2a39a5264c929db1a7548a398560eddb325f2f149ae5d6
   languageName: node
   linkType: hard
 
@@ -810,6 +819,7 @@ __metadata:
     "@typescript-eslint/parser": ^4.24.0
     coinmarketcap-api: ^3.1.1
     currency-formatter: ^1.5.8
+    debug: ^4.3.1
     dotenv: ^9.0.2
     eslint: ^7.26.0
     eslint-config-prettier: ^8.3.0
@@ -817,6 +827,7 @@ __metadata:
     nodemon: ^2.0.7
     prettier: ^2.3.0
     telegraf: ^4.3.0
+    telegraf-session-local: ^2.1.0
     ts-node: ^9.1.1
     typescript: ^4.2.4
     yup: ^0.32.9
@@ -1478,7 +1489,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"graceful-fs@npm:^4.1.2, graceful-fs@npm:^4.2.6":
+"graceful-fs@npm:^4.1.2, graceful-fs@npm:^4.1.3, graceful-fs@npm:^4.2.6":
   version: 4.2.6
   resolution: "graceful-fs@npm:4.2.6"
   checksum: 84d39c7756892553da990a9db7e45f844b3309b37b5a00174cbb4748476f2250c54f24594d4d252f64f085c65c2fdac7c809419bf6d55f0e6e42eb07ac0f5bf2
@@ -1776,6 +1787,13 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"is-promise@npm:^2.1.0":
+  version: 2.2.2
+  resolution: "is-promise@npm:2.2.2"
+  checksum: 6fe84293b8750d3604a909979a7517a38b1618817f1fbbfdaf4d6138642117c85fbee12927b4d51349a5bcd9bdf8d1bf181f09145ede2d7eb41f4b394ab2ce7d
+  languageName: node
+  linkType: hard
+
 "is-typedarray@npm:^1.0.0":
   version: 1.0.0
   resolution: "is-typedarray@npm:1.0.0"
@@ -1907,10 +1925,23 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.15, lodash@npm:^4.17.20, lodash@npm:^4.17.21":
+"lodash@npm:4, lodash@npm:^4.17.15, lodash@npm:^4.17.20, lodash@npm:^4.17.21":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: 4983720b9abca930a4a46f18db163d7dad8dd00dbed6db0cc7b499b33b717cce69f80928b27bbb1ff2cbd3b19d251ee90669a8b5ea466072ca81c2ebe91e7468
+  languageName: node
+  linkType: hard
+
+"lowdb@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "lowdb@npm:1.0.0"
+  dependencies:
+    graceful-fs: ^4.1.3
+    is-promise: ^2.1.0
+    lodash: 4
+    pify: ^3.0.0
+    steno: ^0.4.1
+  checksum: 264b01846c1c76b92637fc0f37e1650f634a817bec71706b1f2c933a95191e1b6c2b5d097d0cab8ba77545d64cd38f6371c842a9111d5da5b5e3aec2f839cccf
   languageName: node
   linkType: hard
 
@@ -2348,6 +2379,13 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"pify@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "pify@npm:3.0.0"
+  checksum: 18af2b29148c4d6fd4c7741dbd953ff76beea17d1b4a6d5792d7ff1d7202f43671c3f29313aa5ec01a66d050dbdbb0cf23f17de69531da8dc8bda42d327cf960
+  languageName: node
+  linkType: hard
+
 "prelude-ls@npm:^1.2.1":
   version: 1.2.1
   resolution: "prelude-ls@npm:1.2.1"
@@ -2782,6 +2820,15 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"steno@npm:^0.4.1":
+  version: 0.4.4
+  resolution: "steno@npm:0.4.4"
+  dependencies:
+    graceful-fs: ^4.1.3
+  checksum: 5bcef265d5702bf55e47292ddc20ec408e2b85811ded9bbcb5618b2cadcb3f0450f1f43a8805e30c9c5734fa24c14726a9e317963d1d192ceb413eec630c8cd6
+  languageName: node
+  linkType: hard
+
 "string-width@npm:^1.0.1":
   version: 1.0.2
   resolution: "string-width@npm:1.0.2"
@@ -2927,6 +2974,19 @@ fsevents@~2.3.1:
     mkdirp: ^1.0.3
     yallist: ^4.0.0
   checksum: d1d988eceb1ad2ecfaaf6fc5ecfe0c46fa005d04fe4c283355ccc52d3ffb4b6bf459a62f9ac7e36fd35251ab020399bdf527ab48b968120e06b4f61906a87d62
+  languageName: node
+  linkType: hard
+
+"telegraf-session-local@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "telegraf-session-local@npm:2.1.0"
+  dependencies:
+    "@types/lowdb": ^1.0.9
+    lowdb: ^1.0.0
+  peerDependencies:
+    debug: ^2.0.0 || ^3.0.0 || ^4.0.0
+    telegraf: ^3.38.0 || ^4.0.0
+  checksum: aed917f29556e3addaf3fe9f9574956366117f4b43a6321b43649087e78aef74ce5c7fe85808455e11dcc415b16823edd1626469ccf0d868956ee6f92d18575a
   languageName: node
   linkType: hard
 
