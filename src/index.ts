@@ -69,6 +69,12 @@ bot.hears(/!price [\w| ]*/i, async (ctx) => {
             currencies: currency,
         })
 
+        // Doesn't seems to throw an error when receive a 400
+        // @todo: Check why no error when receive a 400
+        if (quotes.status.error_code == 400 && quotes.status.error_message !== '') {
+            throw new Error(quotes.status.error_message)
+        }
+
         for (const key in quotes.data) {
             const data = quotes.data[key]
 
@@ -77,9 +83,20 @@ bot.hears(/!price [\w| ]*/i, async (ctx) => {
             })
         }
     } catch (error) {
-        console.error(error)
+        // Move this into a Middleware
+        console.log(error)
 
-        await ctx.reply(`Oops something happened.. Can't find it.`)
+        const currencyRegex = new RegExp(currency, 'g')
+        const errorMessage = error.message as string
+
+        // Check if the error message is because of the currency
+        if (errorMessage.match(currencyRegex)) {
+            await ctx.reply(`Sorry but I don't understand your currency: *${currency}*`, {
+                parse_mode: 'MarkdownV2',
+            })
+        } else {
+            await ctx.reply(`Oops something happened.. Can't find it.`)
+        }
     }
 })
 
