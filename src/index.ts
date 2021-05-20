@@ -15,11 +15,20 @@ interface BotContext extends Context {
     }
 }
 
+// Bot initialisation
 const bot = new Telegraf<BotContext>(process.env.TELEGRAM_TOKEN)
+
+/**
+ * Welcome message
+ *
+ * @param {BotContext} ctx
+ */
+const welcome = (ctx: BotContext) => {
+    ctx.replyWithMarkdownV2('Hey there *' + ctx.username + '*, how your portfolio is doing today')
+}
 
 // Use a local DB in JSON for extra information like the currencies
 bot.use(new LocalSession({ database: 'bot_db.json' }).middleware())
-
 bot.use(async (ctx: BotContext, next) => {
     // Save username
     ctx.username = ctx.message.from.first_name
@@ -51,13 +60,9 @@ bot.use(async (ctx: BotContext, next) => {
     }
 })
 
-bot.start((ctx: BotContext) => {
-    ctx.replyWithMarkdownV2('Hello *' + ctx.username + '*, give me a crypto')
-})
-
-bot.hears(/hi|hello|hey/i, (ctx) => {
-    ctx.replyWithMarkdownV2('Hey there *' + ctx.username + '*, how your portfolio is doing today')
-})
+// Welcome + Hi message regroup
+bot.start(welcome)
+bot.hears(/hi|hello|hey/i, welcome)
 
 bot.help(async (ctx) => {
     await ctx.replyWithMarkdownV2(`Here is how I can help you\\.`)
@@ -67,12 +72,14 @@ bot.help(async (ctx) => {
     )
 
     await ctx.replyWithMarkdownV2(`\`!price {cryptoCode1} {cryptoCode2} \\.\\.\\.\``)
-
     await ctx.replyWithMarkdownV2(`For example: \`!price ETH BTC\` `)
 
     await ctx.replyWithMarkdownV2(
-        `For any command you can give me an extra parameters with a specific currency with this tag \`currencie:CAD\``,
+        `Don't forget to give me your currency, by default I returned *CAD*`,
     )
+
+    await ctx.replyWithMarkdownV2(`\`!currency {currencyCode}\``)
+    await ctx.replyWithMarkdownV2(`For example: \`!currency CAD\` `)
 })
 
 // @todo: find a better way to have a list of Crypto
