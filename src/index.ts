@@ -20,7 +20,7 @@ const bot = new Telegraf<BotContext>(process.env.TELEGRAM_TOKEN)
 // Use a local DB in JSON for extra information like the currencies
 bot.use(new LocalSession({ database: 'bot_db.json' }).middleware())
 
-bot.use((ctx: BotContext, next) => {
+bot.use(async (ctx: BotContext, next) => {
     // Save username
     ctx.username = ctx.message.from.first_name
 
@@ -29,7 +29,26 @@ bot.use((ctx: BotContext, next) => {
         ctx.session.currency = 'CAD'
     }
 
-    return next()
+    try {
+        await next()
+    } catch (error) {
+        console.log(error)
+
+        const currencyRegex = new RegExp(ctx.session.currency, 'g')
+        const errorMessage = error.message as string
+
+        // Check if the error message is because of the currency
+        if (errorMessage.match(currencyRegex)) {
+            await ctx.reply(
+                `Sorry but I don't understand your currency: *${ctx.session.currency}*`,
+                {
+                    parse_mode: 'MarkdownV2',
+                },
+            )
+        } else {
+            await ctx.reply(`Oops something happened.. Can't find it.`)
+        }
+    }
 })
 
 bot.start((ctx: BotContext) => {
@@ -63,40 +82,23 @@ bot.hears(/!price [\w| ]*/i, async (ctx) => {
 
     await ctx.reply('fetching my db...')
 
-    try {
-        const quotes = await getCoins({
-            symbols: [...message.split(' ')].splice(1, 6),
-            currencies: currency,
+    const quotes = await getCoins({
+        symbols: [...message.split(' ')].splice(1, 6),
+        currencies: currency,
+    })
+
+    // Doesn't seems to throw an error when receive a 400
+    // @todo: Check why no error when receive a 400
+    if (quotes.status.error_code == 400 && quotes.status.error_message !== '') {
+        throw new Error(quotes.status.error_message)
+    }
+
+    for (const key in quotes.data) {
+        const data = quotes.data[key]
+
+        await ctx.reply(`*${data.name}*: ${getCurrentPrice(data, currency)}`, {
+            parse_mode: 'MarkdownV2',
         })
-
-        // Doesn't seems to throw an error when receive a 400
-        // @todo: Check why no error when receive a 400
-        if (quotes.status.error_code == 400 && quotes.status.error_message !== '') {
-            throw new Error(quotes.status.error_message)
-        }
-
-        for (const key in quotes.data) {
-            const data = quotes.data[key]
-
-            await ctx.reply(`*${data.name}*: ${getCurrentPrice(data, currency)}`, {
-                parse_mode: 'MarkdownV2',
-            })
-        }
-    } catch (error) {
-        // Move this into a Middleware
-        console.log(error)
-
-        const currencyRegex = new RegExp(currency, 'g')
-        const errorMessage = error.message as string
-
-        // Check if the error message is because of the currency
-        if (errorMessage.match(currencyRegex)) {
-            await ctx.reply(`Sorry but I don't understand your currency: *${currency}*`, {
-                parse_mode: 'MarkdownV2',
-            })
-        } else {
-            await ctx.reply(`Oops something happened.. Can't find it.`)
-        }
     }
 })
 
