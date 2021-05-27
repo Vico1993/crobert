@@ -80,6 +80,9 @@ bot.help(async (ctx) => {
 
     await ctx.replyWithMarkdownV2(`\`!currency {currencyCode}\``)
     await ctx.replyWithMarkdownV2(`For example: \`!currency CAD\` `)
+
+    await ctx.replyWithMarkdownV2(`If you don't remember which currency you saved use:`)
+    await ctx.replyWithMarkdownV2(`\`!currency\``)
 })
 
 // @todo: find a better way to have a list of Crypto
@@ -118,17 +121,19 @@ bot.hears(/!price [\w| ]*/i, async (ctx) => {
 
 /**
  * Update Currency
+ * @todo: Return the current currency
  */
 bot.hears(/!currency [\w]*/i, async (ctx) => {
     const message = ctx.message.text
+    const oldCurrency = ctx.session.currency
     const newCurrency = message.split(' ').splice(1, 1).shift()
 
-    if (newCurrency === ctx.session.currency) {
+    if (newCurrency === oldCurrency) {
         ctx.reply(`Hum\\.\\.\\. you are already set for ${newCurrency}`, {
             parse_mode: 'MarkdownV2',
         })
     }
-    await ctx.reply(`Switched *${ctx.session.currency}* for *${newCurrency}*`, {
+    await ctx.reply(`Switched *${oldCurrency}* for *${newCurrency}*`, {
         parse_mode: 'MarkdownV2',
     })
 
