@@ -61,7 +61,3 @@ export const getCurrentPrice = (crypto: coin, currency: string): string => {
         decimal: '.',
     })
 }
-
-// export const getPercent = (crypto: coin, currency: string) => {
-//     return crypto.quote[currency].percent_change_1h
-// }
