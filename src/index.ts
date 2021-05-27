@@ -103,9 +103,19 @@ bot.hears(/!price [\w| ]*/i, async (ctx) => {
     for (const key in quotes.data) {
         const data = quotes.data[key]
 
-        await ctx.reply(`*${data.name}*: ${getCurrentPrice(data, currency)}`, {
+        await ctx.reply(`*${data.name}*`, {
             parse_mode: 'MarkdownV2',
         })
+
+        await ctx.reply(
+            `
+<b>Price</b>: ${getCurrentPrice(data, currency)}
+<b>1h</b>: ${data.quote[currency].percent_change_1h} %
+<b>24h</b>: ${data.quote[currency].percent_change_24h} %`,
+            {
+                parse_mode: 'HTML',
+            },
+        )
     }
 })
 
