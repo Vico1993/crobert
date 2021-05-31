@@ -36,8 +36,6 @@ export const getCoins = async (params: coinFilter): Promise<cmcQuotesResponse> =
     try {
         data = await coinsFilterValidation.validate(params)
     } catch (error) {
-        console.error('Validation failed', error)
-
         return
     }
 

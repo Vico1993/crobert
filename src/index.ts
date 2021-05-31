@@ -41,8 +41,6 @@ bot.use(async (ctx: BotContext, next) => {
     try {
         await next()
     } catch (error) {
-        console.log(error)
-
         const currencyRegex = new RegExp(ctx.session.currency, 'g')
         const errorMessage = error.message as string
 
@@ -145,8 +143,6 @@ bot.hears(/!currency [\w]*/i, async (ctx) => {
 // @todo: News ?
 
 bot.launch()
-
-console.log(`I'm listening...`)
 
 // Enable graceful stop
 // process.once('SIGINT', () => bot.stop('SIGINT'))
