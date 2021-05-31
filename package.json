@@ -39,7 +39,7 @@
     "debug": "^4.3.1",
     "dotenv": "^9.0.2",
     "telegraf": "^4.3.0",
-    "telegraf-session-local": "^2.1.0",
+    "telegraf-session-local": "git+https://github.com/Vico1993/telegraf-session-local.git",
     "yup": "^0.32.9"
   }
 }

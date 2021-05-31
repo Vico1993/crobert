@@ -827,7 +827,7 @@ __metadata:
     nodemon: ^2.0.7
     prettier: ^2.3.0
     telegraf: ^4.3.0
-    telegraf-session-local: ^2.1.0
+    telegraf-session-local: "git+https://github.com/Vico1993/telegraf-session-local.git"
     ts-node: ^9.1.1
     typescript: ^4.2.4
     yup: ^0.32.9
@@ -2977,16 +2977,16 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"telegraf-session-local@npm:^2.1.0":
+"telegraf-session-local@git+https://github.com/Vico1993/telegraf-session-local.git":
   version: 2.1.0
-  resolution: "telegraf-session-local@npm:2.1.0"
+  resolution: "telegraf-session-local@https://github.com/Vico1993/telegraf-session-local.git#commit=36f6fbbfc43b7cc1203439672af8669f2bc2921b"
   dependencies:
     "@types/lowdb": ^1.0.9
     lowdb: ^1.0.0
   peerDependencies:
     debug: ^2.0.0 || ^3.0.0 || ^4.0.0
     telegraf: ^3.38.0 || ^4.0.0
-  checksum: aed917f29556e3addaf3fe9f9574956366117f4b43a6321b43649087e78aef74ce5c7fe85808455e11dcc415b16823edd1626469ccf0d868956ee6f92d18575a
+  checksum: 831a1b58094bdd68decf6ad54d09d46141f54de58f61d28a5cd4bcf06af1f15354b599d4cbfeef7fb07728e86e3d75b66754936b437f6c48b5ec0d94b95c4dd4
   languageName: node
   linkType: hard
 

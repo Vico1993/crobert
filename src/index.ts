@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv'
 import { Context, Telegraf } from 'telegraf'
-import * as LocalSession from 'telegraf-session-local'
+import { LocalSession } from 'telegraf-session-local'
 
 import { getCoins, getCurrentPrice } from './coins'
 
