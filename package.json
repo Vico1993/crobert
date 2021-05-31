@@ -30,7 +30,6 @@
     "build": "tsc -p tsconfig.json",
     "start:watch": "nodemon --watch \"src/**\" --ext \"ts,json\" --ignore \"src/**/*.spec.ts\" --exec \"ts-node src/index.ts\"",
     "lint": "eslint . --ext .ts",
-    "postinstall": "tsc",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
   },
   "dependencies": {

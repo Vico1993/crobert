@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv'
 import { Context, Telegraf } from 'telegraf'
-import { LocalSession } from 'telegraf-session-local'
+const LocalSession = require('telegraf-session-local')
 
 import { getCoins, getCurrentPrice } from './coins'
 
@@ -142,8 +142,7 @@ bot.hears(/!currency [\w]*/i, async (ctx) => {
 // @todo: TOP Winner ? loose ?
 // @todo: News ?
 
-// bot.launch()
-module.exports = bot
+bot.launch()
 
 // Enable graceful stop
 // process.once('SIGINT', () => bot.stop('SIGINT'))

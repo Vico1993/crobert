@@ -2979,7 +2979,7 @@ fsevents@~2.3.1:
 
 "telegraf-session-local@git+https://github.com/Vico1993/telegraf-session-local.git":
   version: 2.1.0
-  resolution: "telegraf-session-local@https://github.com/Vico1993/telegraf-session-local.git#commit=36f6fbbfc43b7cc1203439672af8669f2bc2921b"
+  resolution: "telegraf-session-local@https://github.com/Vico1993/telegraf-session-local.git#commit=c53eddf558e1e117764bb5a8732dbf8e483765a8"
   dependencies:
     "@types/lowdb": ^1.0.9
     lowdb: ^1.0.0
