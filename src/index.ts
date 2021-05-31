@@ -142,7 +142,8 @@ bot.hears(/!currency [\w]*/i, async (ctx) => {
 // @todo: TOP Winner ? loose ?
 // @todo: News ?
 
-bot.launch()
+// bot.launch()
+module.exports = bot
 
 // Enable graceful stop
 // process.once('SIGINT', () => bot.stop('SIGINT'))
